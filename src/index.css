@@ -1,0 +1,67 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------ */
+/* Basement Designer — design tokens. A confident, modern design-firm  */
+/* palette: cool off-white + ink, a warm copper accent, and a slate    */
+/* "blueprint" blue. (Token names kept stable so components reskin.)    */
+/* ------------------------------------------------------------------ */
+@theme {
+  --color-paper: #fcfbf8;
+  --color-bone: #f1f0ea;
+  --color-canvas: #e6e5df;
+  --color-graphite: #191b1f;
+  --color-graphite-soft: #262a30;
+
+  --color-ink: #1b1d21;
+  --color-ink-soft: #494d54;
+  --color-ink-faint: #888d95;
+
+  --color-line: #e1ded5;
+  --color-line-soft: #edebe3;
+
+  /* warm copper accent (reuses the 'brass' names) */
+  --color-brass: #c1762e;
+  --color-brass-bright: #d98a3c;
+  --color-brass-deep: #8f5219;
+
+  --color-clay: #a8623f;
+  --color-sage: #5d7a5a;
+  --color-sage-deep: #45593f;
+
+  /* slate "blueprint" */
+  --color-blueprint: #3d566e;
+  --color-blueprint-soft: #6b8199;
+  --color-walnut: #2d3942;
+
+  --color-flag: #c0492b;
+  --color-amber: #bf8a2a;
+
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  --shadow-panel: 0 1px 2px rgba(20, 22, 26, 0.05), 0 2px 10px -4px rgba(20, 22, 26, 0.14);
+  --shadow-float: 0 2px 6px -2px rgba(20, 22, 26, 0.12), 0 14px 34px -14px rgba(20, 22, 26, 0.3);
+  --shadow-lift: 0 26px 64px -28px rgba(20, 22, 26, 0.5);
+}
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.015em; }
+  ::selection { background: var(--color-brass-bright); color: var(--color-ink); }
+  .fp-scroll { scrollbar-width: thin; scrollbar-color: var(--color-line) transparent; }
+  .fp-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+  .fp-scroll::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 9999px; }
+  .fp-scroll::-webkit-scrollbar-track { background: transparent; }
+}
+
+@keyframes fp-slide-in { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes fp-fade-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }

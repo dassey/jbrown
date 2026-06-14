@@ -28,6 +28,10 @@ export function ElementIcon({ name, className }: { name: string; className?: str
     case 'sofa': return W(<><path d="M4 11V9a2 2 0 012-2h12a2 2 0 012 2v2" /><rect x="3" y="11" width="18" height="6" rx="2" /><path d="M6 17v2M18 17v2" /></>)
     case 'recliner': return W(<><path d="M5 18v-5l3-1V8a2 2 0 012-2h4a2 2 0 012 2v4l3 1v5" /><path d="M5 13h14" /></>)
     case 'pool': return W(<><rect x="3" y="7" width="18" height="10" rx="2" /><circle cx="8" cy="12" r="1.2" /><circle cx="12" cy="11" r="1.2" /><circle cx="12" cy="13.5" r="1.2" /></>)
+    case 'subpanel': return W(<><rect x="7" y="3" width="10" height="18" rx="1.5" /><path d="M9.5 7h5M9.5 10h5M9.5 13h5M9.5 16h5" /></>)
+    case 'sump': return W(<><rect x="4" y="5" width="16" height="14" rx="2" /><circle cx="12" cy="12" r="4" /><path d="M12 12V7M10 7h4" /></>)
+    case 'dehumidifier': return W(<><rect x="6" y="4" width="12" height="16" rx="2" /><path d="M9 8h6M9 11h6" /><path d="M12 14c1 1 1 2 0 3-1-1-1-2 0-3z" /></>)
+    case 'waterheater': return W(<><rect x="8" y="3" width="8" height="18" rx="4" /><path d="M10 7h4" /><path d="M12 3V2" /></>)
     default: return W(<rect x="4" y="4" width="16" height="16" rx="2" />)
   }
 }

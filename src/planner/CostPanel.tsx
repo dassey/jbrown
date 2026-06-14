@@ -28,6 +28,7 @@ export function CostPanel({ onQuote }: { onQuote: () => void }) {
         {cost.rooms > 0 && <Row label={`Rooms (${cost.roomCount})`} value={formatUSD(cost.rooms)} />}
         {cost.finishes.total > 0 && <Row label="Floor & ceiling" sub={cost.finishes.label} value={formatUSD(cost.finishes.total)} />}
         {cost.features > 0 && <Row label={`Features (${cost.featureCount})`} value={formatUSD(cost.features)} />}
+        {cost.scope > 0 && <Row label="Systems & scope" value={formatUSD(cost.scope)} />}
       </div>
       <button onClick={onQuote} className={buttonClass('primary', 'md', 'mt-3 w-full')}>Send my plan to John</button>
       <p className="mt-1.5 text-center text-[11px] text-ink-faint">Ballpark only — John confirms the real number.</p>

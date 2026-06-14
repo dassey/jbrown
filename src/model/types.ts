@@ -14,13 +14,15 @@
 export type WallSide = 'north' | 'south' | 'east' | 'west'
 
 export type ElementClass = 'zone' | 'feature'
-export type ElementCategory = 'rooms' | 'features' | 'fixtures'
+export type ElementCategory = 'rooms' | 'features' | 'fixtures' | 'systems'
 
 export type ElementKind =
   // zones
   | 'rec-room' | 'bedroom' | 'bathroom' | 'theater' | 'bar-room' | 'office' | 'gym' | 'playroom' | 'laundry' | 'storage' | 'mechanical'
   // features
   | 'egress' | 'stairs' | 'column' | 'toilet' | 'vanity' | 'shower' | 'tub' | 'wet-bar' | 'tv' | 'sectional' | 'pool-table' | 'fireplace' | 'theater-seating' | 'furnace'
+  // systems
+  | 'subpanel' | 'sump' | 'dehumidifier' | 'water-heater'
 
 export type Mount = 'floor' | 'wall'
 
@@ -101,7 +103,28 @@ export interface Plan {
   openings: Opening[]
   items: Item[]
   palette: Palette
+  /** Project-wide scope add-ons (electrical, waterproofing, repair…): id -> qty (0 = off). */
+  scope: Record<string, number>
   project: { name: string }
+}
+
+/* ------------------------------ scope & systems ------------------------- */
+
+export type ScopeUnit = 'each' | 'sqft' | 'linft' | 'flat'
+export type ScopeMode = 'toggle' | 'qty'
+export type ScopeGroup = 'electrical' | 'waterproofing' | 'structural' | 'air'
+
+export interface ScopeItem {
+  id: string
+  group: ScopeGroup
+  label: string
+  blurb: string
+  price: number
+  unit: ScopeUnit
+  /** toggle = on/off (0/1); qty = a counted quantity. */
+  mode: ScopeMode
+  step?: number
+  max?: number
 }
 
 export type IssueSeverity = 'error' | 'warning' | 'ok'

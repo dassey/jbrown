@@ -110,6 +110,8 @@ const SERVICES = [
   ['Wet bars & wine rooms', 'The social heart of the basement — “The Basement Social Wet Bar.”'],
   ['Bathrooms', 'Full or half baths with vanities, showers and walk-in closets.'],
   ['Ceilings & soffits', 'Soffits that hide the ductwork — drywall that matches upstairs, not a drop ceiling.'],
+  ['Electrical & lighting', 'Recessed lighting, circuits and a full electrical plan drawn to IRC code.'],
+  ['Waterproofing & repair', 'Perimeter drains, sumps, vapor barriers, radon and crack repair — handled right.'],
 ]
 function Services() {
   return (

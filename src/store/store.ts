@@ -20,6 +20,7 @@ function hydrate(draft: PlanDraft): Plan {
     room: draft.room,
     palette: draft.palette,
     project: { name: draft.name },
+    scope: draft.scope ?? {},
     items: draft.items.map((it) => ({ ...it, id: uid('it') })),
     openings: draft.openings.map((op) => ({ ...op, id: uid('op') })),
   }
@@ -52,6 +53,7 @@ interface PlannerState {
   removeOpening: (id: string) => void
 
   setPalette: (patch: Partial<Palette>) => void
+  setScope: (id: string, qty: number) => void
   setProjectName: (name: string) => void
 
   setView: (v: ViewMode) => void
@@ -73,7 +75,7 @@ export const usePlanner = create<PlannerState>()(
       snap: true,
 
       loadTemplate: (id) => set({ plan: hydrate(buildTemplate(id)), selectedId: null }),
-      loadPlan: (plan) => set({ plan, selectedId: null }),
+      loadPlan: (plan) => set({ plan: { ...plan, scope: plan.scope ?? {} }, selectedId: null }),
       reset: () => set({ plan: hydrate(buildTemplate('empty')), selectedId: null }),
 
       addElement: (defId, pos) => {
@@ -148,6 +150,7 @@ export const usePlanner = create<PlannerState>()(
       removeOpening: (id) => set((s) => ({ plan: { ...s.plan, openings: s.plan.openings.filter((o) => o.id !== id) } })),
 
       setPalette: (patch) => set((s) => ({ plan: { ...s.plan, palette: { ...s.plan.palette, ...patch } } })),
+      setScope: (id, qty) => set((s) => ({ plan: { ...s.plan, scope: { ...(s.plan.scope ?? {}), [id]: Math.max(0, qty) } } })),
       setProjectName: (name) => set((s) => ({ plan: { ...s.plan, project: { ...s.plan.project, name } } })),
 
       setView: (v) => set({ view: v }),
@@ -156,7 +159,11 @@ export const usePlanner = create<PlannerState>()(
     }),
     {
       name: 'jbrown-plan-v1',
-      version: 1,
+      version: 2,
+      migrate: (persisted: any) => {
+        if (persisted?.plan && !persisted.plan.scope) persisted.plan.scope = {}
+        return persisted
+      },
       partialize: (s) => ({ plan: s.plan, view: s.view, showGrid: s.showGrid, snap: s.snap }),
     },
   ),

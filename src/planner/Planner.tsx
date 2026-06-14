@@ -5,6 +5,7 @@ import { Library } from './Library'
 import { CostPanel } from './CostPanel'
 import { ValidationPanel } from './ValidationPanel'
 import { PropertiesPanel } from './PropertiesPanel'
+import { ScopePanel } from './ScopePanel'
 import { SubmitModal } from './SubmitModal'
 import { validate } from '../model/validation'
 import { decodePlan } from '../lib/share'
@@ -24,7 +25,7 @@ function Loading3D() {
   )
 }
 
-type RightTab = 'check' | 'design'
+type RightTab = 'check' | 'design' | 'scope'
 
 function RightRail() {
   const selectedId = usePlanner((s) => s.selectedId)
@@ -37,17 +38,17 @@ function RightRail() {
     <div className="flex min-h-0 flex-1 flex-col">
       <CostPanel onQuote={() => setQuote(true)} />
       <div className="flex border-b border-line">
-        {(['check', 'design'] as RightTab[]).map((t) => (
+        {(['check', 'design', 'scope'] as RightTab[]).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
-            className={cn('flex-1 py-2.5 text-sm font-semibold capitalize transition-colors', tab === t ? 'border-b-2 border-brass text-ink' : 'text-ink-faint hover:text-ink')}
+            className={cn('flex-1 py-2.5 text-[13px] font-semibold transition-colors', tab === t ? 'border-b-2 border-brass text-ink' : 'text-ink-faint hover:text-ink')}
           >
-            {t === 'check' ? 'Code check' : 'Style'}
+            {t === 'check' ? 'Code check' : t === 'design' ? 'Style' : 'Scope'}
           </button>
         ))}
       </div>
-      {tab === 'check' ? <ValidationPanel /> : <PropertiesPanel />}
+      {tab === 'check' ? <ValidationPanel /> : tab === 'design' ? <PropertiesPanel /> : <ScopePanel />}
       {quote && <SubmitModal onClose={() => setQuote(false)} />}
     </div>
   )

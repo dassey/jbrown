@@ -3,6 +3,7 @@
  * floor + ceiling finishes add per sq ft on top; features are flat each.
  */
 import { ceilingDef, floorDef, getElement } from './catalog'
+import { getScopeItem } from './scope'
 import type { Plan } from './types'
 
 export interface CostBreakdown {
@@ -10,6 +11,7 @@ export interface CostBreakdown {
   rooms: number
   finishes: { total: number; label: string }
   features: number
+  scope: number
   total: number
   roomCount: number
   featureCount: number
@@ -40,12 +42,27 @@ export function computeCost(plan: Plan): CostBreakdown {
   const cd = ceilingDef(plan.palette.ceiling)
   const finishesTotal = Math.round(sqft * ((fd.pricePerSqft ?? 0) + (cd.pricePerSqft ?? 0)))
 
+  // Scope & systems (electrical / waterproofing / repair / air).
+  const perimeterFt = (2 * (plan.room.width + plan.room.depth)) / 12
+  let scope = 0
+  for (const [id, qty] of Object.entries(plan.scope ?? {})) {
+    if (!qty || qty <= 0) continue
+    const item = getScopeItem(id)
+    if (!item) continue
+    if (item.unit === 'each') scope += item.price * qty
+    else if (item.unit === 'sqft') scope += item.price * sqft
+    else if (item.unit === 'linft') scope += item.price * perimeterFt
+    else scope += item.price
+  }
+  scope = Math.round(scope)
+
   return {
     finishedSqft: Math.round(sqft),
     rooms: Math.round(rooms),
     finishes: { total: finishesTotal, label: `${fd.label} · ${cd.label}` },
     features: Math.round(features),
-    total: Math.round(rooms + finishesTotal + features),
+    scope,
+    total: Math.round(rooms + finishesTotal + features + scope),
     roomCount,
     featureCount,
   }

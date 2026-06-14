@@ -32,7 +32,12 @@ export const ELEMENTS: ElementDef[] = [
   { id: 'egress', label: 'Egress window', class: 'feature', kind: 'egress', category: 'features', width: 48, depth: 12, height: 48, widths: [36, 48, 60], mount: 'wall', elevation: 24, price: 4200, priceUnit: 'each', blurb: 'Code-required escape window + well for any bedroom.', snapsToWall: true, icon: 'egress', model: '3d-egress' },
   { id: 'stairs', label: 'Staircase', class: 'feature', kind: 'stairs', category: 'features', width: 40, depth: 132, height: 96, mount: 'floor', price: 2800, priceUnit: 'each', blurb: 'Finished stairs up to the main floor.', icon: 'stairs', model: '3d-stairs' },
   { id: 'column', label: 'Support column', class: 'feature', kind: 'column', category: 'features', width: 8, depth: 8, height: 96, mount: 'floor', price: 0, priceUnit: 'each', blurb: 'A structural post — design around it.', icon: 'column', model: '3d-column' },
-  { id: 'furnace', label: 'Furnace / water heater', class: 'feature', kind: 'furnace', category: 'features', width: 32, depth: 30, height: 60, mount: 'floor', price: 0, priceUnit: 'each', blurb: 'Mechanicals that need clearance.', icon: 'furnace', model: '3d-furnace' },
+  /* ------------------------------- systems ------------------------------- */
+  { id: 'furnace', label: 'Furnace', class: 'feature', kind: 'furnace', category: 'systems', width: 32, depth: 30, height: 60, mount: 'floor', price: 0, priceUnit: 'each', blurb: 'Forced-air furnace — leave service clearance.', icon: 'furnace', model: '3d-furnace' },
+  { id: 'water-heater', label: 'Water heater', class: 'feature', kind: 'water-heater', category: 'systems', width: 24, depth: 24, height: 58, mount: 'floor', price: 0, priceUnit: 'each', blurb: 'Tank water heater.', icon: 'waterheater', model: '3d-waterheater' },
+  { id: 'subpanel', label: 'Electrical sub-panel', class: 'feature', kind: 'subpanel', category: 'systems', width: 16, depth: 5, height: 30, mount: 'wall', elevation: 48, price: 1800, priceUnit: 'each', blurb: 'Sub-panel feeding the basement circuits.', snapsToWall: true, icon: 'subpanel', model: '3d-subpanel' },
+  { id: 'sump', label: 'Sump pump', class: 'feature', kind: 'sump', category: 'systems', width: 24, depth: 24, height: 6, mount: 'floor', price: 1400, priceUnit: 'each', blurb: 'Sump pit + pump for groundwater.', snapsToWall: true, icon: 'sump', model: '3d-sump' },
+  { id: 'dehumidifier', label: 'Dehumidifier', class: 'feature', kind: 'dehumidifier', category: 'systems', width: 18, depth: 24, height: 34, mount: 'floor', price: 1200, priceUnit: 'each', blurb: 'Whole-basement dehumidifier.', icon: 'dehumidifier', model: '3d-dehumidifier' },
   { id: 'fireplace', label: 'Fireplace', class: 'feature', kind: 'fireplace', category: 'features', width: 50, depth: 14, height: 48, widths: [42, 50, 60], mount: 'wall', elevation: 0, price: 3200, priceUnit: 'each', blurb: 'Linear gas or electric fireplace.', snapsToWall: true, icon: 'fireplace', model: '3d-fireplace' },
   { id: 'tv', label: 'Wall TV', class: 'feature', kind: 'tv', category: 'features', width: 65, depth: 5, height: 38, mount: 'wall', elevation: 34, price: 0, priceUnit: 'each', blurb: 'Mounted television.', snapsToWall: true, icon: 'tv', model: '3d-tv' },
 
@@ -55,6 +60,7 @@ export const CATEGORY_LABEL: Record<ElementCategory, string> = {
   rooms: 'Rooms',
   features: 'Structure & features',
   fixtures: 'Fixtures & furniture',
+  systems: 'Systems & mechanical',
 }
 
 /* -------------------------- basement-wide finishes ---------------------- */

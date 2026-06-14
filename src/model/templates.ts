@@ -13,6 +13,7 @@ export interface PlanDraft {
   palette: Palette
   items: DraftItem[]
   openings: Omit<Opening, 'id'>[]
+  scope?: Record<string, number>
 }
 
 export const DEFAULT_PALETTE: Palette = {
@@ -47,6 +48,7 @@ function guest(): PlanDraft {
     name: 'Guest suite',
     room: r,
     palette: { ...DEFAULT_PALETTE },
+    scope: { 'electrical-design': 1, 'recessed-lighting': 10, 'bath-fan': 1 },
     items: [
       zone('rec-room', 132, 138, 252, 252),
       zone('bedroom', 324, 78, 120, 144),

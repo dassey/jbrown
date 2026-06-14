@@ -4,7 +4,7 @@ import { formatUSD } from '../model/pricing'
 import { usePlanner } from '../store/store'
 import { ElementIcon } from './icons'
 
-const CATS: ElementCategory[] = ['rooms', 'features', 'fixtures']
+const CATS: ElementCategory[] = ['rooms', 'features', 'fixtures', 'systems']
 
 export function Library({ onAdded }: { onAdded?: () => void }) {
   const addElement = usePlanner((s) => s.addElement)

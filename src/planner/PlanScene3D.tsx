@@ -103,6 +103,14 @@ function Feature({ item, palette }: { item: Item; palette: Palette }) {
       )
     case '3d-pool':
       return <group><mesh position={[0, 28, 0]} castShadow receiveShadow><boxGeometry args={[w, 8, d]} /><meshStandardMaterial color="#2f6b46" roughness={0.7} /></mesh><mesh position={[0, 14, 0]}><boxGeometry args={[w - 8, 20, d - 8]} /><meshStandardMaterial color="#3a2c22" roughness={0.6} /></mesh></group>
+    case '3d-subpanel':
+      return <mesh position={[0, elev + h / 2, d / 2]} castShadow><boxGeometry args={[w, h, d]} /><meshStandardMaterial color="#3b3e43" metalness={0.4} roughness={0.5} /></mesh>
+    case '3d-sump':
+      return <group><mesh position={[0, 1, 0]}><cylinderGeometry args={[w / 2, w / 2, 3, 18]} /><meshStandardMaterial color="#1f2024" roughness={0.6} /></mesh><mesh position={[0, 7, 0]} castShadow><boxGeometry args={[6, 12, 6]} /><meshStandardMaterial {...METAL} /></mesh></group>
+    case '3d-dehumidifier':
+      return <group><mesh position={[0, h / 2, 0]} castShadow receiveShadow><boxGeometry args={[w, h, d]} /><meshStandardMaterial color="#d4d7da" roughness={0.5} /></mesh><mesh position={[0, h * 0.6, d / 2 + 0.1]}><boxGeometry args={[w - 5, h * 0.4, 1]} /><meshStandardMaterial {...DARK} /></mesh></group>
+    case '3d-waterheater':
+      return <mesh position={[0, h / 2, 0]} castShadow><cylinderGeometry args={[w / 2, w / 2, h, 20]} /><meshStandardMaterial {...METAL} /></mesh>
     default:
       return <mesh position={[0, h / 2, 0]} castShadow><boxGeometry args={[w, h, d]} /><meshStandardMaterial color="#b7b2a8" /></mesh>
   }

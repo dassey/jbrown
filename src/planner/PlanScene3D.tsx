@@ -13,6 +13,7 @@ import type { Item, Palette, Room } from '../model/types'
 import { usePlanner } from '../store/store'
 import { registerExporter } from './canvasExport'
 import { useElementSize } from '../lib/useElementSize'
+import { useActiveTheme } from '../theme/useTheme'
 
 const WALL_H = 44 // model cutaway wall height (inches)
 const WHITE = '#f2efe9'
@@ -185,8 +186,9 @@ export default function PlanScene3D() {
   const room: Room = usePlanner((s) => s.plan.room)
   const diag = Math.hypot(room.width, room.depth) * 0.0254
   const { ref, size } = useElementSize<HTMLDivElement>()
+  const sceneBg = useActiveTheme().scene
   return (
-    <div ref={ref} className="h-full w-full" style={{ background: 'radial-gradient(120% 120% at 50% 6%, #2b2d31 0%, #17181b 60%, #0e0f11 100%)' }}>
+    <div ref={ref} className="h-full w-full" style={{ background: sceneBg }}>
       <Canvas
         style={size.width > 0 ? { width: size.width, height: size.height } : { width: '100%', height: '100%' }}
         shadows

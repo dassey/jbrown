@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Logo } from './Logo'
+import { ThemeSwitcher } from './ThemeSwitcher'
 import { buttonClass, cn, scrollToId } from '../lib/ui'
 
 const NAV = [
@@ -31,6 +32,7 @@ export function Header() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
+          <div className="hidden sm:block"><ThemeSwitcher /></div>
           <Link to="/plan" className={buttonClass('dark', 'sm', 'hidden sm:inline-flex')}>Design your basement</Link>
           <button onClick={() => setOpen((o) => !o)} aria-label="Menu" className="grid h-10 w-10 place-items-center rounded-full text-ink hover:bg-ink/[0.06] lg:hidden">
             <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">{open ? <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" /> : <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />}</svg>

@@ -10,13 +10,15 @@ import { SubmitModal } from './SubmitModal'
 import { validate } from '../model/validation'
 import { decodePlan } from '../lib/share'
 import { usePlanner } from '../store/store'
+import { useActiveTheme } from '../theme/useTheme'
 import { cn } from '../lib/ui'
 
 const PlanScene3D = lazy(() => import('./PlanScene3D'))
 
 function Loading3D() {
+  const sceneBg = useActiveTheme().scene
   return (
-    <div className="grid h-full w-full place-items-center" style={{ background: 'radial-gradient(120% 120% at 50% 10%, #2a2620, #100e0a)' }}>
+    <div className="grid h-full w-full place-items-center" style={{ background: sceneBg }}>
       <div className="flex flex-col items-center gap-3 text-paper/70">
         <span className="h-8 w-8 animate-spin rounded-full border-2 border-paper/20 border-t-brass" />
         <span className="text-sm">Rendering your basement…</span>

@@ -5,6 +5,7 @@ import { TEMPLATES } from '../model/templates'
 import { usePlanner } from '../store/store'
 import { encodePlan } from '../lib/share'
 import { exportPNG } from './canvasExport'
+import { ThemeSwitcher } from '../components/ThemeSwitcher'
 import { buttonClass, cn } from '../lib/ui'
 
 function IconButton({ active, onClick, label, children }: { active?: boolean; onClick: () => void; label: string; children: React.ReactNode }) {
@@ -108,6 +109,9 @@ export function Toolbar({ onOpenLibrary, onOpenPanels }: { onOpenLibrary: () => 
         <IconButton onClick={() => { if (window.confirm('Clear the plan and start from an empty room?')) reset() }} label="Reset">
           <svg viewBox="0 0 20 20" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M15 8A6 6 0 104 9M15 8V4m0 4h-4" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </IconButton>
+
+        <span className="mx-1 hidden h-6 w-px bg-line sm:block" />
+        <div className="hidden sm:block"><ThemeSwitcher /></div>
 
         <button onClick={onOpenPanels} className={buttonClass('subtle', 'sm', 'lg:hidden')}>Details</button>
         <Link to="/" className={buttonClass('outline', 'sm', 'ml-1 hidden sm:inline-flex')}>Exit</Link>

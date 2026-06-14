@@ -6,21 +6,7 @@ import type { Issue, Item } from '../model/types'
 import { usePlanner } from '../store/store'
 import { useElementSize } from '../lib/useElementSize'
 import { registerExporter } from './canvasExport'
-
-const C = {
-  bg: '#15171a',
-  floor: '#23262b',
-  grid: 'rgba(238,240,244,0.05)',
-  gridFoot: 'rgba(238,240,244,0.10)',
-  wall: '#b9c0c8',
-  dim: 'rgba(238,240,244,0.45)',
-  dimText: '#c4c8cf',
-  feature: '#cfd4d9', featureLine: '#969da6',
-  fixture: '#e6ddcd', fixtureLine: '#b6a98c',
-  front: '#d98a3c',
-  select: '#d98a3c',
-  error: '#cf5034', warning: '#cf9636',
-}
+import { useActiveTheme } from '../theme/useTheme'
 
 interface View { scale: number; x: number; y: number }
 
@@ -34,6 +20,7 @@ export function PlanCanvas2D({ issues }: { issues: Issue[] }) {
   const showGrid = usePlanner((s) => s.showGrid)
   const snap = usePlanner((s) => s.snap)
   const room = plan.room
+  const C = useActiveTheme().canvas
   const [view, setView] = useState<View>({ scale: 1, x: 0, y: 0 })
   const stageRef = useRef<any>(null)
 
@@ -161,8 +148,8 @@ export function PlanCanvas2D({ issues }: { issues: Issue[] }) {
             <Rect x={0} y={0} width={room.width} height={room.depth} stroke={C.wall} strokeWidth={5} strokeScaleEnabled={false} listening={false} />
 
             {/* room dimensions */}
-            <DimLine x1={0} y1={-14} x2={room.width} y2={-14} label={inchesToFeet(room.width)} />
-            <DimLine x1={-14} y1={0} x2={-14} y2={room.depth} label={inchesToFeet(room.depth)} vertical />
+            <DimLine x1={0} y1={-14} x2={room.width} y2={-14} label={inchesToFeet(room.width)} dim={C.dim} textFill={C.dimText} />
+            <DimLine x1={-14} y1={0} x2={-14} y2={room.depth} label={inchesToFeet(room.depth)} vertical dim={C.dim} textFill={C.dimText} />
 
             {zones.map(renderItem)}
             {features.map(renderItem)}
@@ -186,13 +173,13 @@ export function PlanCanvas2D({ issues }: { issues: Issue[] }) {
   )
 }
 
-function DimLine({ x1, y1, x2, y2, label, vertical }: { x1: number; y1: number; x2: number; y2: number; label: string; vertical?: boolean }) {
+function DimLine({ x1, y1, x2, y2, label, vertical, dim, textFill }: { x1: number; y1: number; x2: number; y2: number; label: string; vertical?: boolean; dim: string; textFill: string }) {
   return (
     <Group listening={false}>
-      <Line points={[x1, y1, x2, y2]} stroke={C.dim} strokeWidth={1} strokeScaleEnabled={false} />
-      <Line points={vertical ? [x1 - 4, y1, x1 + 4, y1] : [x1, y1 - 4, x1, y1 + 4]} stroke={C.dim} strokeWidth={1} strokeScaleEnabled={false} />
-      <Line points={vertical ? [x2 - 4, y2, x2 + 4, y2] : [x2, y2 - 4, x2, y2 + 4]} stroke={C.dim} strokeWidth={1} strokeScaleEnabled={false} />
-      <Text text={label} x={(x1 + x2) / 2} y={(y1 + y2) / 2} fontFamily="JetBrains Mono" fontSize={11} fill={C.dimText} rotation={vertical ? -90 : 0} offsetX={14} offsetY={vertical ? -6 : 14} />
+      <Line points={[x1, y1, x2, y2]} stroke={dim} strokeWidth={1} strokeScaleEnabled={false} />
+      <Line points={vertical ? [x1 - 4, y1, x1 + 4, y1] : [x1, y1 - 4, x1, y1 + 4]} stroke={dim} strokeWidth={1} strokeScaleEnabled={false} />
+      <Line points={vertical ? [x2 - 4, y2, x2 + 4, y2] : [x2, y2 - 4, x2, y2 + 4]} stroke={dim} strokeWidth={1} strokeScaleEnabled={false} />
+      <Text text={label} x={(x1 + x2) / 2} y={(y1 + y2) / 2} fontFamily="JetBrains Mono" fontSize={11} fill={textFill} rotation={vertical ? -90 : 0} offsetX={14} offsetY={vertical ? -6 : 14} />
     </Group>
   )
 }
